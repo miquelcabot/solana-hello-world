@@ -1,18 +1,18 @@
 [toolchain]
 
 [features]
-resolution = true
+seeds = false
 skip-lint = false
 
 [programs.localnet]
-solana_hello_world = "3XoiyqxN7a4exZ6MHUcaHn7xjvpmBs82CmGAJRohM1DP"
+solana_hello_world = "AYy6VYeespnPnVb6c7sbkdX1irZ5vQxgRtpbCUjJx9mr"
 
 [registry]
 url = "https://api.apr.dev"
 
 [provider]
 cluster = "Localnet"
-wallet = "~/.config/solana/id.json"
+wallet = "/Users/miquel/.config/solana/id.json"
 
 [scripts]
 test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"
