@@ -1,6 +1,6 @@
 import * as anchor from "@coral-xyz/anchor";
 import { Program } from "@coral-xyz/anchor";
-import { SolanaHelloWorld } from "../target/types/solana_hello_world";
+import { HelloWorld } from "../target/types/hello_world";
 
 import chai from "chai";
 import { expect } from "chai";
@@ -33,11 +33,26 @@ const createWallet = async (connection: anchor.web3.Connection, funds: number)
   return wallet;
 };
 
-describe("solana-hello-world", () => {
+const initializeAccount = async (program: Program<HelloWorld>, authority: anchor.web3.Keypair): Promise<anchor.web3.PublicKey> => {
+
+  const accountKeypair = anchor.web3.Keypair.generate();
+
+  await program.methods.initialize()
+    .accounts({myAccount: accountKeypair.publicKey,
+      authority: authority.publicKey,
+      systemProgram: anchor.web3.SystemProgram.programId,
+    })
+    .signers([authority, accountKeypair])
+    .rpc();
+  
+    return accountKeypair.publicKey;
+}
+
+describe("hello-world", () => {
   // Configure the client to use the local cluster.
   anchor.setProvider(anchor.AnchorProvider.env());
 
-  const program = anchor.workspace.SolanaHelloWorld as Program<SolanaHelloWorld>;
+  const program = anchor.workspace.HelloWorld as Program<HelloWorld>;
 
   it("Is initialized!", async () => {
     // Add your test here.

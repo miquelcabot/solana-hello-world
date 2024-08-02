@@ -804,6 +804,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "hello-world"
+version = "0.1.0"
+dependencies = [
+ "anchor-lang",
+]
+
+[[package]]
 name = "hmac"
 version = "0.8.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1435,13 +1442,6 @@ dependencies = [
  "quote",
  "rustc_version",
  "syn 2.0.72",
-]
-
-[[package]]
-name = "solana-hello-world"
-version = "0.1.0"
-dependencies = [
- "anchor-lang",
 ]
 
 [[package]]

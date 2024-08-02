@@ -3,7 +3,7 @@ use anchor_lang::prelude::*;
 declare_id!("J4cWWm4X94upYcFKLtr7WSeZchrXRZ59szMBcDpAe8bt");
 
 #[program]
-pub mod solana_hello_world {
+pub mod hello_world {
     use super::*;
 
     pub fn initialize(ctx: Context<Initialize>) -> Result<()> {
