@@ -8,6 +8,7 @@ pub mod hello_world {
 
     pub fn initialize(ctx: Context<Initialize>) -> Result<()> {
         let my_account = &mut ctx.accounts.my_account;
+        msg!("Account address: {}",my_account.key());
         my_account.data = 0;
         my_account.authority = *ctx.accounts.authority.key;
         Ok(())
