@@ -41,7 +41,11 @@ pub struct Initialize<'info> {
     #[account(mut)]
     pub authority: Signer<'info>,
 
-    #[account(init, payer = authority, space = 8 + 32 + 8)]
+    #[account(init,
+          seeds = [b"account", authority.key().as_ref()],
+          bump,
+          payer = authority,
+          space = 8 + 32 + 8)]
     pub my_account: Account<'info, MyAccount>,
 
     pub system_program: Program<'info, System>,
