@@ -1,4 +1,5 @@
 use anchor_lang::prelude::*;
+use std::mem::size_of;
 
 declare_id!("J4cWWm4X94upYcFKLtr7WSeZchrXRZ59szMBcDpAe8bt");
 
@@ -8,7 +9,7 @@ pub mod hello_world {
 
     pub fn initialize(ctx: Context<Initialize>) -> Result<()> {
         let my_account = &mut ctx.accounts.my_account;
-        msg!("Account address: {}",my_account.key());
+        msg!("Account address: {}", my_account.key());
         my_account.data = 0;
         my_account.authority = *ctx.accounts.authority.key;
         Ok(())
@@ -45,7 +46,7 @@ pub struct Initialize<'info> {
           seeds = [b"account", authority.key().as_ref()],
           bump,
           payer = authority,
-          space = 8 + 32 + 8)]
+          space = size_of::<MyAccount>())]
     pub my_account: Account<'info, MyAccount>,
 
     pub system_program: Program<'info, System>,
@@ -55,7 +56,9 @@ pub struct Initialize<'info> {
 pub struct Update<'info> {
     pub authority: Signer<'info>,
 
-    #[account(mut, has_one = authority)]
+    #[account(mut,
+      seeds = [b"account", authority.key().as_ref()],
+      bump)]
     pub my_account: Account<'info, MyAccount>,
 }
 
